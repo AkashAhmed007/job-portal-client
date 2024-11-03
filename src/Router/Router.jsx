@@ -1,0 +1,8 @@
+import { createBrowserRouter } from "react-router-dom";
+import RootLayout from '../Root/RootLayout'
+export const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <RootLayout></RootLayout>
+  },
+]);
