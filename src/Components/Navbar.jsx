@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
+import avatarImg from "../assets/placeholder.jpg";
 function Navbar() {
+  const { user, logOut } = useAuth();
+  console.log(user);
   const [theme, setTheme] = useState("light");
   const handleToggle = (e) => {
     if (e.target.checked) {
@@ -14,6 +18,7 @@ function Navbar() {
     const getTheme = localStorage.getItem(setLocalStorageTheme);
     document.querySelector("html").setAttribute("data-theme", getTheme);
   }, [theme]);
+
   return (
     <header className="p-4 dark:bg-gray-100 dark:text-gray-800">
       <div className="container flex justify-between items-center h-16 mx-auto">
@@ -45,32 +50,42 @@ function Navbar() {
                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
               >
                 <li>
-                  <Link >Home</Link >
+                  <Link>Home</Link>
                 </li>
                 <li>
-                  <Link >All Jobs</Link >
+                  <Link>All Jobs</Link>
+                </li>
+                {user && (
+                  <div>
+                    <li className="flex">
+                      <Link>Applied Jobs</Link>
+                    </li>
+                    <li className="flex">
+                      <Link>Add A Jobs</Link>
+                    </li>
+                    <li className="flex">
+                      <Link>My Jobs</Link>
+                    </li>
+                  </div>
+                )}
+                <li>
+                  <Link>Blogs</Link>
                 </li>
                 <li>
-                  <Link >Applied Jobs</Link >
+                  <Link>User Profile</Link>
                 </li>
-                <li>
-                  <Link >Add A Job</Link >
-                </li>
-                <li>
-                  <Link >My Jobs</Link >
-                </li>
-                <li>
-                  <Link >Blogs</Link >
-                </li>
-                <li>
-                  <Link >User Profile</Link >
-                </li>
-                <li>
-                  <Link >Sign In</Link >
-                </li>
-                <li>
-                  <Link >Sign Up</Link >
-                </li>
+                {user ? (
+                  ""
+                ) : (
+                  <div>
+                    <li>
+                      <Link to="/login">Sign In</Link>
+                    </li>
+                    <li>
+                      <Link to="/register">Sign Up</Link>
+                    </li>
+                  </div>
+                )}
               </ul>
             </div>
           </div>
@@ -98,78 +113,122 @@ function Navbar() {
           <ul className="items-center hidden space-x-3 lg:flex">
             <ul className="items-stretch hidden space-x-4 lg:flex">
               <li className="flex">
-                <Link to='/'
+                <Link
+                  to="/"
                   rel="noopener noreferrer"
                   href="#"
                   className="flex items-center px-4 -mb-1 border-b-2 dark:border- dark:text-violet-600 dark:border-violet-600"
                 >
                   Home
-                </Link >
+                </Link>
               </li>
               <li className="flex">
-                <Link 
+                <Link
                   rel="noopener noreferrer"
                   href="#"
                   className="flex items-center px-4 -mb-1 border-b-2 dark:border-"
                 >
                   All Jobs
-                </Link >
+                </Link>
               </li>
+              {user && (
+                <div className="flex">
+                  <li className="flex">
+                    <Link
+                      rel="noopener noreferrer"
+                      href="#"
+                      className="flex items-center px-4 -mb-1 border-b-2 dark:border-"
+                    >
+                      Applied Jobs
+                    </Link>
+                  </li>
+                  <li className="flex">
+                    <Link
+                      rel="noopener noreferrer"
+                      href="#"
+                      className="flex items-center px-4 -mb-1 border-b-2 dark:border-"
+                    >
+                      Add A Jobs
+                    </Link>
+                  </li>
+                  <li className="flex">
+                    <Link
+                      rel="noopener noreferrer"
+                      href="#"
+                      className="flex items-center px-4 -mb-1 border-b-2 dark:border-"
+                    >
+                      My Jobs
+                    </Link>
+                  </li>
+                </div>
+              )}
               <li className="flex">
-                <Link 
-                  rel="noopener noreferrer"
-                  href="#"
-                  className="flex items-center px-4 -mb-1 border-b-2 dark:border-"
-                >
-                  Applied Jobs
-                </Link >
-              </li>
-              <li className="flex">
-                <Link 
-                  rel="noopener noreferrer"
-                  href="#"
-                  className="flex items-center px-4 -mb-1 border-b-2 dark:border-"
-                >
-                  Add A Jobs
-                </Link >
-              </li>
-              <li className="flex">
-                <Link 
-                  rel="noopener noreferrer"
-                  href="#"
-                  className="flex items-center px-4 -mb-1 border-b-2 dark:border-"
-                >
-                  My Jobs
-                </Link >
-              </li>
-              <li className="flex">
-                <Link 
+                <Link
                   rel="noopener noreferrer"
                   href="#"
                   className="flex items-center px-4 -mb-1 border-b-2 dark:border-"
                 >
                   Blogs
-                </Link >
+                </Link>
               </li>
               <li className="flex">
-                <Link 
+                <Link
                   rel="noopener noreferrer"
                   href="#"
                   className="flex items-center px-4 -mb-1 border-b-2 dark:border-"
                 >
                   User Profile
-                </Link >
+                </Link>
               </li>
             </ul>
           </ul>
 
           <div className="flex justify-between space-x-4">
-            <Link to='/login' className="border border-blue-600 hover:bg-blue-900 hover:text-blue-100 dark:border-blue-400 dark:hover:bg-blue-700 transform transition duration-300 text-black-900 font-semibold rounded hidden lg:block px-4 py-2">
-              Sign In
-            </Link>
-            <Link to='/register' className="border border-blue-600 hover:bg-blue-900 hover:text-blue-100 dark:border-blue-400 dark:hover:bg-blue-700 transform transition duration-300 text-black-900 font-semibold rounded hidden lg:block px-4 py-2">
-              Sign Up
-            </Link>
+            {user ? (
+              <div className="dropdown dropdown-end">
+                <div
+                  tabIndex={0}
+                  role="button"
+                  className="btn btn-ghost btn-circle avatar"
+                >
+                  <div className="w-10 rounded-full">
+                    <img
+                      alt="user image"
+                      referrerPolicy="no-referrer"
+                      src={user && user.photoURL ? user.photoURL : avatarImg}
+                    />
+                  </div>
+                </div>
+                <ul
+                  tabIndex={0}
+                  className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+                >
+                  <li>
+                    <a className="justify-between">
+                      {user ? user.displayName : user.email}
+                    </a>
+                  </li>
+                  <li>
+                    <button onClick={logOut}>Logout</button>
+                  </li>
+                </ul>
+              </div>
+            ) : (
+              <div className="flex justify-center items-center gap-2">
+                <Link
+                  to="/login"
+                  className="border border-blue-600 hover:bg-blue-900 hover:text-blue-100 dark:border-blue-400 dark:hover:bg-blue-700 transform transition duration-300 text-black-900 font-semibold rounded hidden lg:block px-4 py-2"
+                >
+                  Sign In
+                </Link>
+                <Link
+                  to="/register"
+                  className="border border-blue-600 hover:bg-blue-900 hover:text-blue-100 dark:border-blue-400 dark:hover:bg-blue-700 transform transition duration-300 text-black-900 font-semibold rounded hidden lg:block px-4 py-2"
+                >
+                  Sign Up
+                </Link>
+              </div>
+            )}
 
             <div className="flex items-center justify-center">
               <label className="swap swap-rotate">
@@ -196,28 +255,6 @@ function Navbar() {
               </label>
             </div>
           </div>
-
-          {/* <div className="dropdown dropdown-end">
-      <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-        <div className="w-10 rounded-full">
-          <img
-            alt="Tailwind CSS Navbar component"
-            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
-        </div>
-      </div>
-      <ul
-        tabIndex={0}
-        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-        <li>
-          <a className="justify-between">
-            Profile
-            <span className="badge">New</span>
-          </a>
-        </li>
-        <li><a>Settings</a></li>
-        <li><a>Logout</a></li>
-      </ul>
-    </div> */}
         </div>
       </div>
     </header>

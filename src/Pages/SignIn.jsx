@@ -17,11 +17,9 @@ const Login = () => {
     const password = form.password.value;
     try {
       setLoading(true);
-      //userCreate
       await signIn(email, password);
       navigate(from);
       toast.success("Login Successful");
-      setLoading(false);
     } catch (error) {
       toast.error(error.message);
       setLoading(false);
