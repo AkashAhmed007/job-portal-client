@@ -4,6 +4,11 @@ import ErrorPage from "../Pages/ErrorPage";
 import Home from "../Pages/Home";
 import SignIn from "../Pages/SignIn";
 import SignUp from "../Pages/SignUp";
+import AllJobs from "../Components/AllJobs";
+import OnSiteJob from "../Components/OnSiteJob";
+import RemoteJob from "../Components/RemoteJob";
+import HybridJob from "../Components/HybridJob";
+import PartTimeJob from "../Components/PartTimeJob";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -11,7 +16,29 @@ export const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children:[{
       path:'/',
-      element:<Home></Home>
+      element:<Home></Home>,
+      children:[
+        {
+          index: true,
+          element:<AllJobs></AllJobs>
+        },
+        {
+          path:'onsite-job',
+          element:<OnSiteJob></OnSiteJob>
+        },
+        {
+          path:'remote-job',
+          element:<RemoteJob></RemoteJob>
+        },
+        {
+          path:'hybrid-job',
+          element:<HybridJob></HybridJob>
+        },
+        {
+          path:'part-time-job',
+          element:<PartTimeJob></PartTimeJob>
+        },
+      ]
     },
     {
       path:'/login',

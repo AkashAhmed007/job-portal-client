@@ -1,4 +1,5 @@
 import banner from '../assets/banner.jpg'
+
 function Banner() {
   return (
     <section className="dark:bg-gray-100 dark:text-gray-800 space-y-10 lg:space-y-0">
