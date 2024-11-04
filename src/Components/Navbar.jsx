@@ -69,7 +69,7 @@ function Navbar() {
                   </div>
                 )}
                 <li>
-                  <Link>Blogs</Link>
+                  <Link to='blog'>Blogs</Link>
                 </li>
                 <li>
                   <Link>User Profile</Link>
@@ -165,7 +165,7 @@ function Navbar() {
               <li className="flex">
                 <Link
                   rel="noopener noreferrer"
-                  href="#"
+                  to='blog'
                   className="flex items-center px-4 -mb-1 border-b-2 dark:border-"
                 >
                   Blogs

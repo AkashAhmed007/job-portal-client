@@ -9,6 +9,7 @@ import OnSiteJob from "../Components/OnSiteJob";
 import RemoteJob from "../Components/RemoteJob";
 import HybridJob from "../Components/HybridJob";
 import PartTimeJob from "../Components/PartTimeJob";
+import Blog from "../Pages/Blog";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -37,7 +38,7 @@ export const router = createBrowserRouter([
         {
           path:'part-time-job',
           element:<PartTimeJob></PartTimeJob>
-        },
+        }
       ]
     },
     {
@@ -48,7 +49,12 @@ export const router = createBrowserRouter([
       path:'/register',
       element:<SignUp></SignUp>
     },
+    {
+      path:'blog',
+      element:<Blog></Blog>
+    },
   ]
   },
+
 ]);
 
