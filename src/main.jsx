@@ -3,10 +3,16 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import { RouterProvider } from "react-router-dom";
 import { router } from "./Router/Router";
-import FirebaseProvider from "./Firebase/FirebaseAuthProvider";
-
+import { HelmetProvider } from "react-helmet-async";
+import { Toaster } from "react-hot-toast";
+import AuthProvider from "./provider/AuthProvider";
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <FirebaseProvider><RouterProvider router={router} /></FirebaseProvider>
+    <HelmetProvider>
+      <AuthProvider>
+        <RouterProvider router={router} />
+        <Toaster />
+      </AuthProvider>
+    </HelmetProvider>
   </StrictMode>
 );

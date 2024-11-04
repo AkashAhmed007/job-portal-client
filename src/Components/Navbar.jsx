@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 function Navbar() {
   const [theme, setTheme] = useState("light");
   const handleToggle = (e) => {
@@ -44,31 +45,31 @@ function Navbar() {
                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
               >
                 <li>
-                  <a>Home</a>
+                  <Link >Home</Link >
                 </li>
                 <li>
-                  <a>All Jobs</a>
+                  <Link >All Jobs</Link >
                 </li>
                 <li>
-                  <a>Applied Jobs</a>
+                  <Link >Applied Jobs</Link >
                 </li>
                 <li>
-                  <a>Add A Job</a>
+                  <Link >Add A Job</Link >
                 </li>
                 <li>
-                  <a>My Jobs</a>
+                  <Link >My Jobs</Link >
                 </li>
                 <li>
-                  <a>Blogs</a>
+                  <Link >Blogs</Link >
                 </li>
                 <li>
-                  <a>User Profile</a>
+                  <Link >User Profile</Link >
                 </li>
                 <li>
-                  <a>Sign In</a>
+                  <Link >Sign In</Link >
                 </li>
                 <li>
-                  <a>Sign Up</a>
+                  <Link >Sign Up</Link >
                 </li>
               </ul>
             </div>
@@ -97,78 +98,78 @@ function Navbar() {
           <ul className="items-center hidden space-x-3 lg:flex">
             <ul className="items-stretch hidden space-x-4 lg:flex">
               <li className="flex">
-                <a
+                <Link to='/'
                   rel="noopener noreferrer"
                   href="#"
                   className="flex items-center px-4 -mb-1 border-b-2 dark:border- dark:text-violet-600 dark:border-violet-600"
                 >
                   Home
-                </a>
+                </Link >
               </li>
               <li className="flex">
-                <a
+                <Link 
                   rel="noopener noreferrer"
                   href="#"
                   className="flex items-center px-4 -mb-1 border-b-2 dark:border-"
                 >
                   All Jobs
-                </a>
+                </Link >
               </li>
               <li className="flex">
-                <a
+                <Link 
                   rel="noopener noreferrer"
                   href="#"
                   className="flex items-center px-4 -mb-1 border-b-2 dark:border-"
                 >
                   Applied Jobs
-                </a>
+                </Link >
               </li>
               <li className="flex">
-                <a
+                <Link 
                   rel="noopener noreferrer"
                   href="#"
                   className="flex items-center px-4 -mb-1 border-b-2 dark:border-"
                 >
                   Add A Jobs
-                </a>
+                </Link >
               </li>
               <li className="flex">
-                <a
+                <Link 
                   rel="noopener noreferrer"
                   href="#"
                   className="flex items-center px-4 -mb-1 border-b-2 dark:border-"
                 >
                   My Jobs
-                </a>
+                </Link >
               </li>
               <li className="flex">
-                <a
+                <Link 
                   rel="noopener noreferrer"
                   href="#"
                   className="flex items-center px-4 -mb-1 border-b-2 dark:border-"
                 >
                   Blogs
-                </a>
+                </Link >
               </li>
               <li className="flex">
-                <a
+                <Link 
                   rel="noopener noreferrer"
                   href="#"
                   className="flex items-center px-4 -mb-1 border-b-2 dark:border-"
                 >
                   User Profile
-                </a>
+                </Link >
               </li>
             </ul>
           </ul>
 
           <div className="flex justify-between space-x-4">
-            <button className="border border-blue-600 hover:bg-blue-900 hover:text-blue-100 dark:border-blue-400 dark:hover:bg-blue-700 transform transition duration-300 text-black-900 font-semibold rounded hidden lg:block px-4 py-2">
+            <Link to='/login' className="border border-blue-600 hover:bg-blue-900 hover:text-blue-100 dark:border-blue-400 dark:hover:bg-blue-700 transform transition duration-300 text-black-900 font-semibold rounded hidden lg:block px-4 py-2">
               Sign In
-            </button>
-            <button className="border border-blue-600 hover:bg-blue-900 hover:text-blue-100 dark:border-blue-400 dark:hover:bg-blue-700 transform transition duration-300 text-black-900 font-semibold rounded hidden lg:block px-4 py-2">
+            </Link>
+            <Link to='/register' className="border border-blue-600 hover:bg-blue-900 hover:text-blue-100 dark:border-blue-400 dark:hover:bg-blue-700 transform transition duration-300 text-black-900 font-semibold rounded hidden lg:block px-4 py-2">
               Sign Up
-            </button>
+            </Link>
 
             <div className="flex items-center justify-center">
               <label className="swap swap-rotate">
