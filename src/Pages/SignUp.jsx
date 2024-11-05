@@ -3,6 +3,8 @@ import { FcGoogle } from "react-icons/fc";
 import toast from "react-hot-toast";
 import { ImSpinner3 } from "react-icons/im";
 import useAuth from "../hooks/useAuth";
+import {imageUpload} from '../ImageUpload/index'
+import { useState } from "react";
 const SignUp = () => {
   const {
     createUser,
@@ -11,20 +13,29 @@ const SignUp = () => {
     loading,
     setLoading,
   } = useAuth();
-  const navigate = useNavigate();
+
+const [userRole, setUserRole] = useState('');
+
+
+const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
     const name = form.name.value;
     const email = form.email.value;
     const password = form.password.value;
+    const image = form.image.files[0];
+    const role = userRole;
 
     try {
       setLoading(true);
+      const image_url = await imageUpload(image)
+
       //userCreate
-      await createUser(email, password);
+      await createUser(email, password, role,image_url);
       //updateUserProfile
-      await updateUserProfile(name, email);
+      await updateUserProfile(name, image_url);
       navigate("/");
       toast.success("Signup Successful!");
       setLoading(false);
@@ -50,6 +61,26 @@ const SignUp = () => {
           <h1 className="my-3 text-4xl font-bold">Sign Up</h1>
           <p className="text-sm text-gray-400">Welcome to CareerNest</p>
         </div>
+
+        <div className="mb-4">
+        <label className="block font-medium mb-1">Sign up as:</label>
+        <div className="flex space-x-4">
+          <button
+            onClick={() => setUserRole('jobSeeker')}
+            className={`py-2 px-4 rounded ${userRole === 'jobSeeker' ? 'bg-blue-600 text-white' : 'bg-gray-200'}`}
+          >
+            Job Seeker
+          </button>
+          <button
+            onClick={() => setUserRole('recruiter')}
+            className={`py-2 px-4 rounded ${userRole === 'recruiter' ? 'bg-blue-600 text-white' : 'bg-gray-200'}`}
+          >
+            Recruiter
+          </button>
+        </div>
+      </div>
+
+
         <form
           onSubmit={handleSubmit}
           noValidate=""
@@ -65,6 +96,7 @@ const SignUp = () => {
                 type="text"
                 name="name"
                 id="name"
+                required
                 placeholder="Enter Your Name Here"
                 className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900"
                 data-temp-mail-org="0"
@@ -161,3 +193,7 @@ const SignUp = () => {
 };
 
 export default SignUp;
+
+
+
+

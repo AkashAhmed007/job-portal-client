@@ -50,7 +50,7 @@ function CategoryTable({title}) {
             </td>
             <td className="p-3">
               <span className="px-3 py-1 font-semibold rounded-md dark:bg-violet-600 dark:text-gray-50">
-                <button className="btn btn-sm btn-primary hover:bg-blue-900 hover:text-blue-100">
+                <button className="btn btn-sm bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 transition duration-300 hover:text-blue-100">
                   View Details
                 </button>
               </span>

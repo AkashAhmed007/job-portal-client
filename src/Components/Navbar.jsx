@@ -10,7 +10,7 @@ function Navbar() {
     if (e.target.checked) {
       setTheme("light");
     } else {
-      setTheme("dark");
+      setTheme("synthwave");
     }
   };
   useEffect(() => {
@@ -53,17 +53,17 @@ function Navbar() {
                   <Link>Home</Link>
                 </li>
                 <li>
-                  <Link>All Jobs</Link>
+                  <Link to='all-jobs'>All Jobs</Link>
                 </li>
                 {user && (
                   <div>
-                    <li className="flex">
+                    <li>
                       <Link>Applied Jobs</Link>
                     </li>
-                    <li className="flex">
-                      <Link>Add A Jobs</Link>
+                    <li>
+                      <Link  to='addjobs'>Add A Jobs</Link>
                     </li>
-                    <li className="flex">
+                    <li>
                       <Link>My Jobs</Link>
                     </li>
                   </div>
@@ -72,7 +72,7 @@ function Navbar() {
                   <Link to='blog'>Blogs</Link>
                 </li>
                 <li>
-                  <Link>User Profile</Link>
+                  <Link to='profile'>User Profile</Link>
                 </li>
                 {user ? (
                   ""
@@ -117,7 +117,7 @@ function Navbar() {
                   to="/"
                   rel="noopener noreferrer"
                   href="#"
-                  className="flex items-center px-4 -mb-1 border-b-2 dark:border- dark:text-violet-600 dark:border-violet-600"
+                  className="hover:bg-gray-900 hover:text-gray-200 transform transition duration-300 rounded-lg flex items-center px-4 -mb-1 border-b-2 dark:border- dark:text-violet-600 dark:border-violet-600"
                 >
                   Home
                 </Link>
@@ -125,28 +125,29 @@ function Navbar() {
               <li className="flex">
                 <Link
                   rel="noopener noreferrer"
-                  href="#"
-                  className="flex items-center px-4 -mb-1 border-b-2 dark:border-"
+                  to='all-jobs'
+                  className="hover:bg-gray-900 hover:text-gray-200 transform transition duration-300 rounded-lg flex items-center px-4 -mb-1 border-b-2 dark:border-"
                 >
                   All Jobs
                 </Link>
               </li>
               {user && (
-                <div className="flex">
+                <div className="flex gap-2">
                   <li className="flex">
                     <Link
                       rel="noopener noreferrer"
                       href="#"
-                      className="flex items-center px-4 -mb-1 border-b-2 dark:border-"
+                      className="hover:bg-gray-900 hover:text-gray-200 transform transition duration-300 rounded-lg flex items-center px-4 -mb-1 border-b-2 dark:border-"
                     >
                       Applied Jobs
                     </Link>
                   </li>
                   <li className="flex">
                     <Link
+                    to='addjobs'
                       rel="noopener noreferrer"
                       href="#"
-                      className="flex items-center px-4 -mb-1 border-b-2 dark:border-"
+                      className="hover:bg-gray-900 hover:text-gray-200 transform transition duration-300 rounded-lg flex items-center px-4 -mb-1 border-b-2 dark:border-"
                     >
                       Add A Jobs
                     </Link>
@@ -155,7 +156,7 @@ function Navbar() {
                     <Link
                       rel="noopener noreferrer"
                       href="#"
-                      className="flex items-center px-4 -mb-1 border-b-2 dark:border-"
+                      className="hover:bg-gray-900 hover:text-gray-200 transform transition duration-300 rounded-lg flex items-center px-4 -mb-1 border-b-2 dark:border-"
                     >
                       My Jobs
                     </Link>
@@ -166,16 +167,17 @@ function Navbar() {
                 <Link
                   rel="noopener noreferrer"
                   to='blog'
-                  className="flex items-center px-4 -mb-1 border-b-2 dark:border-"
+                  className="hover:bg-gray-900 hover:text-gray-200 transform transition duration-300 rounded-lg flex items-center px-4 -mb-1 border-b-2 dark:border-"
                 >
                   Blogs
                 </Link>
               </li>
               <li className="flex">
                 <Link
+                 to='profile'
                   rel="noopener noreferrer"
                   href="#"
-                  className="flex items-center px-4 -mb-1 border-b-2 dark:border-"
+                  className="hover:bg-gray-900 hover:text-gray-200 transform transition duration-300 rounded-lg flex items-center px-4 -mb-1 border-b-2 dark:border-"
                 >
                   User Profile
                 </Link>
@@ -235,7 +237,7 @@ function Navbar() {
                 <input
                   onChange={handleToggle}
                   type="checkbox"
-                  value="dark"
+                  value="synthwave"
                   className="theme-controller"
                 />
                 <svg
