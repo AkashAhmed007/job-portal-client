@@ -3,8 +3,9 @@ import { FcGoogle } from "react-icons/fc";
 import toast from "react-hot-toast";
 import { ImSpinner3 } from "react-icons/im";
 import useAuth from "../hooks/useAuth";
-import {imageUpload} from '../ImageUpload/index'
+import { imageUpload } from "../ImageUpload/index";
 import { useState } from "react";
+import axios from "axios";
 const SignUp = () => {
   const {
     createUser,
@@ -14,10 +15,10 @@ const SignUp = () => {
     setLoading,
   } = useAuth();
 
-const [userRole, setUserRole] = useState('');
+  const [userRole, setUserRole] = useState("");
+  const isGoogleDisabled = !userRole;
 
-
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,13 +28,22 @@ const navigate = useNavigate();
     const password = form.password.value;
     const image = form.image.files[0];
     const role = userRole;
+    const users = {
+      name,
+      email,
+      password,
+      image,
+      role,
+    };
+    const response = await axios.post("http://localhost:8000/users", users);
+    console.log(response);
 
     try {
       setLoading(true);
-      const image_url = await imageUpload(image)
+      const image_url = await imageUpload(image);
 
       //userCreate
-      await createUser(email, password, role,image_url);
+      await createUser(email, password, role, image_url);
       //updateUserProfile
       await updateUserProfile(name, image_url);
       navigate("/");
@@ -46,7 +56,24 @@ const navigate = useNavigate();
   };
   const handleGoogleSignIn = async () => {
     try {
-      await signInWithGoogle();
+      const response = await signInWithGoogle();
+      console.log(
+        response.user.displayName,
+        response.user.email,
+        response.user.photoURL,
+        userRole
+      );
+
+      const users = {
+       name : response.user.displayName,
+       email :  response.user.email,
+       image_url :response.user.photoURL,
+       role : userRole
+      }
+
+      const result = await axios.post("http://localhost:8000/users",users)
+      console.log(result)
+
       navigate("/");
       toast.success("Signup Successful");
     } catch (error) {
@@ -63,23 +90,30 @@ const navigate = useNavigate();
         </div>
 
         <div className="mb-4">
-        <label className="block font-medium mb-1">Sign up as:</label>
-        <div className="flex space-x-4">
-          <button
-            onClick={() => setUserRole('jobSeeker')}
-            className={`py-2 px-4 rounded ${userRole === 'jobSeeker' ? 'bg-blue-600 text-white' : 'bg-gray-200'}`}
-          >
-            Job Seeker
-          </button>
-          <button
-            onClick={() => setUserRole('recruiter')}
-            className={`py-2 px-4 rounded ${userRole === 'recruiter' ? 'bg-blue-600 text-white' : 'bg-gray-200'}`}
-          >
-            Recruiter
-          </button>
+          <label className="block font-medium mb-1">Sign up as:</label>
+          <div className="flex space-x-4">
+            <button
+              onClick={() => setUserRole("jobSeeker")}
+              className={`py-2 px-4 rounded ${
+                userRole === "jobSeeker"
+                  ? "bg-blue-600 text-white"
+                  : "bg-gray-200"
+              }`}
+            >
+              Job Seeker
+            </button>
+            <button
+              onClick={() => setUserRole("recruiter")}
+              className={`py-2 px-4 rounded ${
+                userRole === "recruiter"
+                  ? "bg-blue-600 text-white"
+                  : "bg-gray-200"
+              }`}
+            >
+              Recruiter
+            </button>
+          </div>
         </div>
-      </div>
-
 
         <form
           onSubmit={handleSubmit}
@@ -169,15 +203,19 @@ const navigate = useNavigate();
           <div className="flex-1 h-px sm:w-16 dark:bg-gray-700"></div>
         </div>
         <button
-          disabled={loading}
           onClick={handleGoogleSignIn}
-          className="flex justify-center items-center space-x-2 border m-3 p-2 border-gray-300 border-rounded cursor-pointer"
+          disabled={isGoogleDisabled}
+          className={`mt-4 px-4 py-2 ${
+            isGoogleDisabled ? "bg-gray-400" : "bg-blue-600 text-white"
+          } rounded`}
         >
-          <FcGoogle size={32} />
+          <div className="flex justify-center items-center">
+            <FcGoogle size={32} />
 
-          <p>Continue with Google</p>
+            <p>Continue with Google</p>
+          </div>
         </button>
-        <p className="px-6 text-sm text-center text-gray-400">
+        <p className="px-6 text-sm text-center text-gray-400 pt-2">
           Already have an account?{" "}
           <Link
             to="/login"
@@ -193,7 +231,3 @@ const navigate = useNavigate();
 };
 
 export default SignUp;
-
-
-
-
